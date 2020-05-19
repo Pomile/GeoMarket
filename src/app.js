@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import logger from 'morgan';
 import debug from 'debug';
+import routes from './route';
 
 const { NODE_ENV } = process.env;
 const app = express();
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
         message: 'Welcome to GeoMarket'
     });
 });
+app.use('/api/v1', routes);
 
 const port = process.env.PORT || 3000;
 

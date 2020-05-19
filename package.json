@@ -11,7 +11,7 @@
     "create:dev:db": "babel-node ./src/database/create/index.js",
     "start": "node dist/app.js",
     "start:dev": "npm run build && nodemon dist/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env NODE_ENV=test mocha --require @babel/register --require @babel/polyfill --exit"
   },
   "repository": {
     "type": "git",
@@ -41,9 +41,12 @@
     "@babel/polyfill": "^7.8.7",
     "@babel/preset-env": "^7.9.6",
     "@babel/register": "^7.9.0",
+    "chai": "^4.2.0",
     "cross-env": "^7.0.2",
     "eslint": "^7.0.0",
+    "mocha": "^7.1.2",
     "nodemon": "^2.0.4",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "supertest": "^4.0.2"
   }
 }
