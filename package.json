@@ -6,6 +6,9 @@
   "scripts": {
     "build": "rimraf dist && mkdir dist && npm run build-with-babel",
     "build-with-babel": "babel src -d dist",
+    "createdb": "node ./dist/database/create/index.js",
+    "create:test:db": "cross-env NODE_ENV=test babel-node ./src/database/create/index.js",
+    "create:dev:db": "babel-node ./src/database/create/index.js",
     "start": "node dist/app.js",
     "start:dev": "npm run build && nodemon dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,10 +24,15 @@
   },
   "homepage": "https://github.com/Pomile/GeoMarket#readme",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "pg": "^8.2.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.21.10",
+    "sequelize-cli": "^5.5.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -33,6 +41,7 @@
     "@babel/polyfill": "^7.8.7",
     "@babel/preset-env": "^7.9.6",
     "@babel/register": "^7.9.0",
+    "cross-env": "^7.0.2",
     "eslint": "^7.0.0",
     "nodemon": "^2.0.4",
     "rimraf": "^3.0.2"
