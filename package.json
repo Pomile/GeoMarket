@@ -2,8 +2,12 @@
   "name": "geomarket",
   "version": "1.0.0",
   "description": "Mini Market Data Bank to show Market location",
-  "main": "index.js",
+  "main": "src/app.js",
   "scripts": {
+    "build": "rimraf dist && mkdir dist && npm run build-with-babel",
+    "build-with-babel": "babel src -d dist",
+    "start": "node dist/app.js",
+    "start:dev": "npm run build && nodemon dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +19,20 @@
   "bugs": {
     "url": "https://github.com/Pomile/GeoMarket/issues"
   },
-  "homepage": "https://github.com/Pomile/GeoMarket#readme"
+  "homepage": "https://github.com/Pomile/GeoMarket#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/node": "^7.8.7",
+    "@babel/polyfill": "^7.8.7",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/register": "^7.9.0",
+    "nodemon": "^2.0.4",
+    "rimraf": "^3.0.2"
+  }
 }
