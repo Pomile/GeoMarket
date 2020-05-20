@@ -5,6 +5,6 @@ import marketRoutes from './market.routes';
 const router = Router();
 
 router.use('/auth', authRoutes);
-router.use('/market', marketRoutes);
+router.use('/markets', marketRoutes);
 
 export default router;

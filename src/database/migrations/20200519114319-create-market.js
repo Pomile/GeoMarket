@@ -21,6 +21,7 @@ module.exports = {
       },
       street: {
         allowNull: false,
+        unique: true,
         type: Sequelize.STRING
       },
       state: {

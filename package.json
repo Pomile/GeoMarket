@@ -27,8 +27,9 @@
     "test:db:migrate": "cross-env NODE_ENV=test npm run db:migrate",
     "test:undo:db:migrate": "cross-env NODE_ENV=test npm run undo:db:migrate",
     "seed": "npx sequelize-cli db:seed:all",
+    "seed:test": "cross-env NODE_ENV=test npx sequelize-cli db:seed:all",
     "undo:seed": "npx sequelize-cli db:seed:undo:all",
-    "test": "npm run test:undo:db:migrate && npm run test:db:migrate && cross-env NODE_ENV=test nyc mocha --require @babel/register --require @babel/polyfill --exit"
+    "test": "npm run test:undo:db:migrate && npm run test:db:migrate && npm run seed:test && cross-env NODE_ENV=test nyc mocha --require @babel/register --require @babel/polyfill --exit"
   },
   "repository": {
     "type": "git",
