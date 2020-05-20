@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const Market = sequelize.define('Market', {
     name: DataTypes.STRING,
     category: DataTypes.STRING,
-    imageUrl: DataTypes.ARRAY(STRING),
+    imageUrl: DataTypes.ARRAY(DataTypes.TEXT),
     street: DataTypes.STRING,
     state: DataTypes.STRING,
     country: DataTypes.STRING
