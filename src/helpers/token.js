@@ -1,8 +1,5 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import db from '../database/models';
-
-const { User } = db;
 
 dotenv.config();
 const envSecret = process.env.TOKEN_SECRET;
@@ -20,6 +17,7 @@ class Token {
         const token = jwt.sign({ payload }, secret, { expiresIn: expires });
         return token;
     }
+
 }
 
 export default Token;
