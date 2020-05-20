@@ -4,7 +4,7 @@ import app from '../src/app';
 import data from './data/user';
 import models from '../src/database/models';
 
-const { data1, data2, data3, data4, data5 } = data;
+const { data1, data2, data3, data4, data5, cred1, cred2, cred3, cred4, cred5 } = data;
 const { expect } = chai;
 
 describe('Auth', () => {
@@ -58,6 +58,58 @@ describe('Auth', () => {
             .post('/api/v1/auth/signup')
             .set('Accept', 'application/json')
             .send(data5)
+            .end((err, res) => {
+                expect(res.status).to.equal(400);
+                done();
+            });
+    });
+    it('should login', (done) => {
+        request(app)
+            .post('/api/v1/auth/login')
+            .set('Accept', 'application/json')
+            .send(cred1)
+            .end((err, res) => {
+                expect(res.status).to.equal(200);
+                expect(res.body.message).to.equal('user logged in successfully');
+                done();
+            });
+    });
+    it('should not login with Incorrect email', (done) => {
+        request(app)
+            .post('/api/v1/auth/login')
+            .set('Accept', 'application/json')
+            .send(cred2)
+            .end((err, res) => {
+                expect(res.status).to.equal(401);
+                done();
+            });
+    });
+    it('should not login with Incorrect password', (done) => {
+        request(app)
+            .post('/api/v1/auth/login')
+            .set('Accept', 'application/json')
+            .send(cred3)
+            .end((err, res) => {
+                expect(res.status).to.equal(401);
+                done();
+            });
+    });
+    
+    it('should not login with Incorrect password', (done) => {
+        request(app)
+            .post('/api/v1/auth/login')
+            .set('Accept', 'application/json')
+            .send(cred4)
+            .end((err, res) => {
+                expect(res.status).to.equal(400);
+                done();
+            });
+    });
+    it('should not login with Incorrect password', (done) => {
+        request(app)
+            .post('/api/v1/auth/login')
+            .set('Accept', 'application/json')
+            .send(cred5)
             .end((err, res) => {
                 expect(res.status).to.equal(400);
                 done();

@@ -32,7 +32,37 @@ const data5 = {
     password: 'pa'
 };
 
+const cred1 = {
 
-export default { data1, data2, data3, data4, data5 };
+    email: 'mj@gmail.com',
+    password: 'password'
+};
+
+const cred2 = {
+
+    email: 'm@gmail.com',
+    password: 'password'
+};
+
+const cred3 = {
+
+    email: 'mj@gmail.com',
+    password: 'password123'
+};
+
+const cred4 = {
+
+    email: 'mj@gmail',
+    password: 'password'
+};
+
+const cred5 = {
+
+    email: 'mj@gmail',
+    password: 'passw'
+};
+
+
+export default { data1, data2, data3, data4, data5, cred1, cred2, cred3, cred4, cred5 };
 
 
