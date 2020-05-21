@@ -2,18 +2,21 @@ import express from 'express';
 import dotenv from 'dotenv';
 import logger from 'morgan';
 import debug from 'debug';
+import multer from 'multer';
 import routes from './route';
 import models from './database/models';
 
+
 const { NODE_ENV } = process.env;
 const app = express();
+const upload = multer();
 dotenv.config();
 if (NODE_ENV === 'development' || NODE_ENV === 'production') {
     app.use(logger('dev'));
 }
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
+app.use(upload.single('file'));
 app.get('/', (req, res) => {
     res.status(200).json({
         status: 200,
