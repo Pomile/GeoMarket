@@ -6,6 +6,7 @@ import marketController from '../controller/market';
 import VerifierMiddlewares from '../middleware/verifier';
 import permission from '../middleware/permission';
 import validateImage from '../middleware/imageValidator';
+import validateId from '../middleware/validateIdParams';
 
 const marketRoutes = Router();
 
@@ -33,6 +34,15 @@ marketRoutes.get(
     validator(getMarketSchema),
     VerifierMiddlewares.verifyToken,
     marketController.getMarketByName
+);
+
+marketRoutes.patch(
+    '/:marketId',
+    validateId,
+    validator(marketSchema),
+    VerifierMiddlewares.verifyToken,
+    permission.permit,
+    marketController.modifyMarket
 );
 
 

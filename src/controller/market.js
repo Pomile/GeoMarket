@@ -111,6 +111,55 @@ class MarketController{
         );        
     }
 
+    static async modifyMarket(req, res) {
+        const { name, category, description, street, state, country } = req.body;
+        const { payload } = req.payload;
+        const { marketId } = req.params;
+        const { id } = payload;
+            Market.findByPk(+marketId).then(market => market.update({
+                name,
+                category,
+                description,
+                street,
+                state,
+                country,
+                userId: id
+            }).then((updatedMarket) => {
+                const {
+
+                    name,
+                    category,
+                    description,
+                    street,
+                    state,
+                    country
+                } = updatedMarket;
+                const response = new Response(
+                    true,
+                    200,
+                    'Market updated successfully',
+                    {
+                        name,
+                        category,
+                        description,
+                        street,
+                        state,
+                        country
+                   }
+                );
+                return res.status(response.code).json(response);
+            })).catch(err => {
+                const response = new Response(
+                    false,
+                    404,
+                    'Market not found',
+                );
+                return res.status(response.code).json(response);
+            });
+            
+
+    }
+
 }
 
 export default MarketController;
