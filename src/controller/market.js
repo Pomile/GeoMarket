@@ -1,7 +1,9 @@
 import Response from '../helpers/Response';
 import db from '../database/models';
+import uploadImage from '../helpers/imageHelper';
 
-const { Market } = db;
+
+const { Market, MarketImage } = db;
 
 class MarketController{
     static async addMarket(req, res) {
@@ -74,6 +76,39 @@ class MarketController{
             return res.status(response.code).json(response);
         }
         
+    }
+
+    static async addMarketImage(req, res) {
+        const { marketId } = req.params;
+        const market = marketId;
+        const filename = req.file.originalname.slice(0, req.file.originalname.length - 4);
+        let imageUrl;
+        await uploadImage(
+            `uploads/${filename}_${market}.jpeg`,
+            req.file,
+            async (err, result) => {
+                if (err) {
+                    const response = new Response(
+                        true,
+                        404,
+                        err,
+                    );
+                    return res.status(response.code).json(response);
+                } else {
+                    imageUrl = result.url;
+                    
+                    const marketImage = await MarketImage.create({ url: imageUrl, marketId: market });
+                    const { id, url, marketId } = marketImage;
+                    const response = new Response(
+                        true,
+                        200,
+                        { id, url, marketId },
+                    );
+                    return res.status(response.code).json(response);
+                }
+            },
+
+        );        
     }
 
 }
