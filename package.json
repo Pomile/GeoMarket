@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Mini Market Data Bank to show Market location",
   "main": "src/app.js",
+  "exports": "src/app.js",
   "nyc": {
     "all": true,
     "sourceMap": false,
@@ -21,7 +22,7 @@
     "build-with-babel": "babel src -d dist",
     "createdb": "node ./dist/database/create/index.js",
     "start": "node dist/app.js",
-    "start:dev": "npm run build && nodemon dist/app.js",
+    "start:dev": "npm run build && nodemon node dist/app.js",
     "db:migrate": "npx sequelize-cli db:migrate",
     "undo:db:migrate": "npx sequelize-cli db:migrate:undo:all",
     "test:db:migrate": "cross-env NODE_ENV=test npm run db:migrate",

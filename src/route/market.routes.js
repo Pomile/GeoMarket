@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import marketSchema from '../validation/marketSchema';
+import getMarketSchema from '../validation/getMarketsByNameSchema';
 import validator from '../middleware/validator';
 import marketController from '../controller/market';
 import VerifierMiddlewares from '../middleware/verifier';
@@ -17,6 +18,13 @@ marketRoutes.post(
     VerifierMiddlewares.verifyToken,
     permission.permit,
     marketController.addMarket
+);
+
+marketRoutes.get(
+    '/',
+    validator(getMarketSchema),
+    VerifierMiddlewares.verifyToken,
+    marketController.getMarketByName
 );
 
 
