@@ -160,6 +160,19 @@ class MarketController{
 
     }
 
+    static async removeMarket(req, res) {
+        const { marketId } = req.params;
+        return Market.findByPk(+marketId)
+            .then(market => market.destroy())
+            .then(() => res.status(204).end())
+            .catch((err) => {
+                res.status(404)
+                    .json({
+                        msg: err.message,
+                    });
+            });
+    }
+
 }
 
 export default MarketController;

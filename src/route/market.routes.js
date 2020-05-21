@@ -45,6 +45,14 @@ marketRoutes.patch(
     marketController.modifyMarket
 );
 
+marketRoutes.delete(
+    '/:marketId',
+    validateId,
+    VerifierMiddlewares.verifyToken,
+    permission.permit,
+    marketController.removeMarket
+);
+
 
 
 export default marketRoutes;

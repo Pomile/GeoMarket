@@ -130,5 +130,25 @@ describe('Market', () => {
                 done();
             });
     });
+    it('should remove a market', (done) => {
+        request(app)
+            .delete('/api/v1/markets/3')
+            .set('Accept', 'application/json')
+            .set({ Authorization: adminToken })
+            .end((err, res) => {
+                expect(res.status).to.equal(204);
+                done();
+            });
+    });
+    it('should not remove a market with id that does not exist', (done) => {
+        request(app)
+            .delete('/api/v1/markets/30')
+            .set('Accept', 'application/json')
+            .set({ Authorization: adminToken })
+            .end((err, res) => {
+                expect(res.status).to.equal(404);
+                done();
+            });
+    });
 });
 
