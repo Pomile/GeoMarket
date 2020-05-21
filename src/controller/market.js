@@ -49,6 +49,32 @@ class MarketController{
         
 
     }
+    static async getMarketByName(req, res) {
+        const { name } = req.body;
+        try {
+            const markets = await Market.findAll({ where: { name } });
+            if (markets.length !== 0) {
+                const response = new Response(
+                    true,
+                    200,
+                    'Market(s) found successfully',
+                    markets
+                );
+                return res.status(response.code).json(response);
+            } else {
+                throw new Error('Market(s) not found');
+            }
+            
+        } catch (error) {
+            const response = new Response(
+                true,
+                404,
+                error.message,
+            );
+            return res.status(response.code).json(response);
+        }
+        
+    }
 
 }
 

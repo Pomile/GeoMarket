@@ -1,6 +1,6 @@
 import request from 'supertest';
 import chai from 'chai';
-import app from '../src/app';
+import app from '../src/app.js';
 import data from './data/user';
 import models from '../src/database/models';
 
