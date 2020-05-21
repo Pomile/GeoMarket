@@ -87,7 +87,7 @@ describe('Market', () => {
             .post('/api/v1/markets/1')
             .set('Accept', 'application/json')
             .set({ Authorization: adminToken })
-            .attach('file', `${__dirname}/data/Focused_On_Jesus.jpg`)
+            .attach('file', `${__dirname}/data/jesus31.jpg`)
             .end((err, res) => {
                 expect(res.status).to.equal(200);
                 expect(res.body.message.url).to.equal('http://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg');
@@ -103,6 +103,30 @@ describe('Market', () => {
             .end((err, res) => {
                 expect(res.status).to.equal(400);
                 expect(res.body.message).to.equal('Unsupported image type');
+                done();
+            });
+    });
+    it('should update a market', (done) => {
+        request(app)
+            .patch('/api/v1/markets/3')
+            .set('Accept', 'application/json')
+            .set({ Authorization: adminToken })
+            .send(market1)
+            .end((err, res) => {
+                expect(res.status).to.equal(200);
+                expect(res.body.message).to.equal('Market updated successfully');
+                done();
+            });
+    });
+    it('should not update a market with invalid id', (done) => {
+        request(app)
+            .patch('/api/v1/markets/jjjj')
+            .set('Accept', 'application/json')
+            .set({ Authorization: adminToken })
+            .send(market1)
+            .end((err, res) => {
+                expect(res.status).to.equal(400);
+                expect(res.body.message).to.equal('Invalid id.id must be a positive integer and greater than 0.');
                 done();
             });
     });
