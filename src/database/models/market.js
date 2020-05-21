@@ -26,6 +26,15 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
     });
 
+    Market.hasMany(models.MarketImage, {
+      foreignKey: 'id',
+      as: 'images',
+      source: 'id',
+      target: 'marketId',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+
   };
   return Market;
 };

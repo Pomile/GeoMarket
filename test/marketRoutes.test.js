@@ -43,7 +43,7 @@ describe('Market', () => {
             .send({name: 'Alamutu'})
             .end((err, res) => {
                 expect(res.status).to.equal(200);
-                expect(res.body.message).to.equal('Market(s) found successfully');
+                expect(res.body.message).to.equal('Markets found successfully');
                 done();
             });
     });
@@ -66,7 +66,7 @@ describe('Market', () => {
             .send({ name: 'Alamutuz' })
             .end((err, res) => {
                 expect(res.status).to.equal(404);
-                expect(res.body.message).to.equal('Market(s) not found');
+                expect(res.body.message).to.equal('Markets not found');
                 done();
             });
     });
@@ -130,6 +130,17 @@ describe('Market', () => {
                 done();
             });
     });
+    it('should get a market', (done) => {
+        request(app)
+            .get('/api/v1/markets/3')
+            .set('Accept', 'application/json')
+            .set({ Authorization: adminToken })
+            .end((err, res) => {
+                expect(res.status).to.equal(200);
+                expect(res.body.data.images.length).to.equal(0);
+                done();
+            });
+    });
     it('should remove a market', (done) => {
         request(app)
             .delete('/api/v1/markets/3')
@@ -150,5 +161,6 @@ describe('Market', () => {
                 done();
             });
     });
+    
 });
 
