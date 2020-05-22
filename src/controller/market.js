@@ -51,6 +51,39 @@ class MarketController{
         
 
     }
+    static async getAMarket(req, res) {
+        const { marketId } = req.params;
+        const market = await Market.findOne({
+            where: { id: +marketId }
+        });
+        const images = await MarketImage.findAll({
+            where: { marketId: +marketId }
+        });
+        
+        if (market) {
+            const { name,
+                category,
+                description,
+                street,
+                state,
+                country } = market;
+            const response = new Response(
+                true,
+                200,
+                'Market found successfully',
+                {
+                    name,
+                    category,
+                    description,
+                    street,
+                    state,
+                    country,
+                    images
+                }
+            );
+            return res.status(response.code).json(response);
+        }
+    }
     static async getMarketByName(req, res) {
         const { name } = req.body;
         try {
@@ -59,12 +92,12 @@ class MarketController{
                 const response = new Response(
                     true,
                     200,
-                    'Market(s) found successfully',
+                    'Markets found successfully',
                     markets
                 );
                 return res.status(response.code).json(response);
             } else {
-                throw new Error('Market(s) not found');
+                throw new Error('Markets not found');
             }
             
         } catch (error) {
