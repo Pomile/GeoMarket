@@ -206,6 +206,20 @@ class MarketController{
             });
     }
 
+    static async removeMarketImage(req, res) {
+        const { marketId } = req.params;
+        const id = marketId;
+        return MarketImage.findByPk(+id)
+            .then(market => market.destroy())
+            .then(() => res.status(204).end())
+            .catch((err) => {
+                res.status(404)
+                    .json({
+                        msg: err.message,
+                    });
+            });
+    }
+
 }
 
 export default MarketController;
