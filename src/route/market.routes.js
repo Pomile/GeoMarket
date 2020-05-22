@@ -61,6 +61,14 @@ marketRoutes.get(
     marketController.getAMarket
 );
 
+marketRoutes.delete(
+    '/images/:marketId',
+    validateId,
+    VerifierMiddlewares.verifyToken,
+    permission.permit,
+    marketController.removeMarketImage
+);
+
 
 
 export default marketRoutes;
