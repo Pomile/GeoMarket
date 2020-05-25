@@ -15,10 +15,7 @@ module.exports = {
       category: {
         type: Sequelize.STRING
       },
-      imageUrl: {
-        allowNull: true,
-        type: Sequelize.ARRAY(Sequelize.TEXT)
-      },
+
       street: {
         allowNull: false,
         unique: true,

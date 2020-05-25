@@ -206,6 +206,7 @@ class MarketController{
             });
     }
 
+
     static async removeMarketImage(req, res) {
         const { marketId } = req.params;
         const id = marketId;
@@ -219,7 +220,29 @@ class MarketController{
                     });
             });
     }
-
+    static async getMarketsByCategory(req, res) {
+        const { offset, limit, category } = req.query;
+    
+        const markets = await Market.findAll({
+            where: { category }, offset,
+            limit });
+        if (markets.length !== 0) {
+            const response = new Response(
+                true,
+                200,
+                'Markets found successfully',
+                markets
+            );
+            return res.status(response.code).json(response);
+        } else {
+            const response = new Response(
+                false,
+                404,
+                'Markets not found',
+            );
+            return res.status(response.code).json(response);
+        }
+    }
 }
 
 export default MarketController;
