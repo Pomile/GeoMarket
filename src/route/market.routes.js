@@ -7,6 +7,7 @@ import VerifierMiddlewares from '../middleware/verifier';
 import permission from '../middleware/permission';
 import validateImage from '../middleware/imageValidator';
 import validateId from '../middleware/validateIdParams';
+import getMarketByCategorySchema from '../validation/getMarketByNameSchema';
 
 const marketRoutes = Router();
 
@@ -52,7 +53,12 @@ marketRoutes.delete(
     permission.permit,
     marketController.removeMarket
 );
-
+marketRoutes.get(
+    '/category',
+    validator(getMarketByCategorySchema),
+    VerifierMiddlewares.verifyToken,
+    marketController.getMarketsByCategory
+);
 marketRoutes.get(
     '/:marketId',
     validateId,
@@ -68,6 +74,7 @@ marketRoutes.delete(
     permission.permit,
     marketController.removeMarketImage
 );
+
 
 
 

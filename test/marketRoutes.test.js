@@ -47,6 +47,48 @@ describe('Market', () => {
                 done();
             });
     });
+    it('should get market by category', (done) => {
+        request(app)
+            .get('/api/v1/markets/category?category=food&limit=10&offset=0')
+            .set('Accept', 'application/json')
+            .set({ Authorization: adminToken })
+            .end((err, res) => {
+                expect(res.status).to.equal(200);
+                expect(res.body.data.length).to.equal(1);
+                done();
+            });
+    });
+    it('should not get market by category with invalid limit', (done) => {
+        request(app)
+            .get('/api/v1/markets/category?category=food&limit=ytyety&offset=0')
+            .set('Accept', 'application/json')
+            .set({ Authorization: adminToken })
+            .end((err, res) => {
+                expect(res.status).to.equal(400);
+                done();
+            });
+    });
+    it('should not get market by category with invalid offset', (done) => {
+        request(app)
+            .get('/api/v1/markets/category?category=food&limit=12&offset=shgshgs')
+            .set('Accept', 'application/json')
+            .set({ Authorization: adminToken })
+            .end((err, res) => {
+                expect(res.status).to.equal(400);
+                done();
+            });
+    });
+    it('should not get market with category that does not exist', (done) => {
+        request(app)
+            .get('/api/v1/markets/category?category=foof&limit=12&offset=0')
+            .set('Accept', 'application/json')
+            .set({ Authorization: adminToken })
+            .end((err, res) => {
+                expect(res.status).to.equal(404);
+                done();
+            });
+    });
+
     it('should get markets without name', (done) => {
         request(app)
             .get('/api/v1/markets')
@@ -161,6 +203,7 @@ describe('Market', () => {
                 done();
             });
     });
+
     
 });
 
