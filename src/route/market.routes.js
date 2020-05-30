@@ -7,7 +7,8 @@ import VerifierMiddlewares from '../middleware/verifier';
 import permission from '../middleware/permission';
 import validateImage from '../middleware/imageValidator';
 import validateId from '../middleware/validateIdParams';
-import getMarketByCategorySchema from '../validation/getMarketByNameSchema';
+import getMarketByCategorySchema from '../validation/getMarketsByCategory';
+import getMarketsByCategoryAtLocationSchema from '../validation/getMarketsByCategoryAtLocationSchema';
 
 const marketRoutes = Router();
 
@@ -56,6 +57,11 @@ marketRoutes.get(
     '/category',
     validator(getMarketByCategorySchema),
     marketController.getMarketsByCategory
+);
+marketRoutes.get(
+    '/category_location',
+    validator(getMarketsByCategoryAtLocationSchema),
+    marketController.getMarketsByCategoryAndLocation
 );
 marketRoutes.get(
     '/:marketId',
