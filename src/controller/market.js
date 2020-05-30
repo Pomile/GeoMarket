@@ -270,6 +270,33 @@ class MarketController{
             return res.status(response.code).json(response);
         }
     }
+
+    static async getMarketsByNameAndLocation(req, res) {
+        const { offset, limit, name, location } = req.query;
+        const splitLocation = location.split(', ');
+        const [state, country] = splitLocation;
+        const markets = await Market.findAll({
+            where: { name, state, country },
+            offset,
+            limit
+        });
+        if (markets.length !== 0) {
+            const response = new Response(
+                true,
+                200,
+                'Markets found successfully',
+                markets
+            );
+            return res.status(response.code).json(response);
+        } else {
+            const response = new Response(
+                false,
+                404,
+                'Markets not found',
+            );
+            return res.status(response.code).json(response);
+        }
+    }
 }
 
 export default MarketController;
