@@ -1,24 +1,23 @@
 import { query } from 'express-validator';
 import capitalize from '../utils/capitalize';
 
-
 /* eslint-disable arrow-parens */
-const schema = [
+const newSchema = [
     query('limit')
         .trim()
         .exists().withMessage('limit is required')
         .isInt().withMessage('Limit must be an integer')
         .toInt()
-        .custom(value => value > 0 ).withMessage('limit must be greater than zero'),
+        .custom(value => value > 0).withMessage('limit must be greater than zero'),
     query('offset')
         .trim()
         .exists().withMessage('offset is required')
         .isInt().withMessage('Offset must be an integer')
         .toInt(),
-    query('category')
+    query('name')
         .trim()
-        .exists().withMessage('Market category is required')
-        .isLength({ min: 2 }).withMessage('Category must not be empty')
+        .exists().withMessage('Name is required')
+        .isLength({ min: 2 }).withMessage('Name must be greater than one character')
         .customSanitizer(value => capitalize(value)),
     query('location')
         .trim()
@@ -39,8 +38,8 @@ const schema = [
 
 ];
 
-const getMarketsByCategoryAtLocationSchema = [
-    ...schema,
+const getMarketsByNameAtLocationSchema = [
+    ...newSchema,
 ];
 
-export default getMarketsByCategoryAtLocationSchema;
+export default getMarketsByNameAtLocationSchema;

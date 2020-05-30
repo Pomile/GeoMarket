@@ -1,4 +1,4 @@
-import { check, query } from 'express-validator';
+import { query } from 'express-validator';
 import capitalize from '../utils/capitalize';
 
 
