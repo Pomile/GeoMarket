@@ -13,7 +13,7 @@ const app = express();
 const upload = multer();
 dotenv.config();
 
-var whitelist = ['http://localhost:3000'];
+var whitelist = NODE_ENV === 'development' || NODE_ENV === 'test' ? ['http://localhost:3000', 'http://localhost:8000', undefined ]: '';
 var corsOptions = {
     origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1) {

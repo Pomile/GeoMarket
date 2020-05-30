@@ -47,6 +47,52 @@ describe('Market', () => {
                 done();
             });
     });
+    it('should get markets with category and location', (done) => {
+        request(app)
+            .get('/api/v1/markets/category_location?category=food&location=lagos, nigeria&limit=20&offset=0')
+            .set('Accept', 'application/json')
+            .end((err, res) => {
+                expect(res.status).to.equal(200);
+                expect(res.body.message).to.equal('Markets found successfully');
+                done();
+            });
+    });
+    it('should not get markets with zero limit', (done) => {
+        request(app)
+            .get('/api/v1/markets/category_location?category=food&location=lagos, nigeria&limit=0&offset=0')
+            .set('Accept', 'application/json')
+            .end((err, res) => {
+                expect(res.status).to.equal(400);
+                done();
+            });
+    });
+    it('should not get markets with invalid offset', (done) => {
+        request(app)
+            .get('/api/v1/markets/category_location?category=food&location=lagos, nigeria&limit=0&offset=ghgsjgs')
+            .set('Accept', 'application/json')
+            .end((err, res) => {
+                expect(res.status).to.equal(400);
+                done();
+            });
+    });
+    it('should not get markets with market category that does not exist', (done) => {
+        request(app)
+            .get('/api/v1/markets/category_location?category=fabrician&location=lagos, nigeria&limit=0&offset=0')
+            .set('Accept', 'application/json')
+            .end((err, res) => {
+                expect(res.status).to.equal(400);
+                done();
+            });
+    });
+    it('should not get markets with invalid location', (done) => {
+        request(app)
+            .get('/api/v1/markets/category_location?category=food&location=lagos nigeria&limit=0&offset=0')
+            .set('Accept', 'application/json')
+            .end((err, res) => {
+                expect(res.status).to.equal(400);
+                done();
+            });
+    });
     it('should get market by category', (done) => {
         request(app)
             .get('/api/v1/markets/category?category=food&limit=10&offset=0')
