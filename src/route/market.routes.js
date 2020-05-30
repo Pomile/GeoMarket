@@ -33,7 +33,6 @@ marketRoutes.post(
 marketRoutes.get(
     '/',
     validator(getMarketSchema),
-    VerifierMiddlewares.verifyToken,
     marketController.getMarketByName
 );
 
@@ -56,14 +55,11 @@ marketRoutes.delete(
 marketRoutes.get(
     '/category',
     validator(getMarketByCategorySchema),
-    VerifierMiddlewares.verifyToken,
     marketController.getMarketsByCategory
 );
 marketRoutes.get(
     '/:marketId',
     validateId,
-    VerifierMiddlewares.verifyToken,
-    permission.permit,
     marketController.getAMarket
 );
 
@@ -74,9 +70,6 @@ marketRoutes.delete(
     permission.permit,
     marketController.removeMarketImage
 );
-
-
-
 
 export default marketRoutes;
 
