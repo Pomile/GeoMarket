@@ -85,7 +85,7 @@ class MarketController{
         }
     }
     static async getMarketByName(req, res) {
-        const { name } = req.body;
+        const { name } = req.query;
         try {
             const markets = await Market.findAll({ where: { name } });
             if (markets.length !== 0) {

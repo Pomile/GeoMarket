@@ -33,7 +33,7 @@ marketRoutes.post(
 );
 
 marketRoutes.get(
-    '/',
+    '/name',
     validator(getMarketSchema),
     marketController.getMarketByName
 );
